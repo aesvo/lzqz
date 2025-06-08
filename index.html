@@ -52,13 +52,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 0px;
       width: 100%;
       max-width: 600px;
       padding: 20px;
       box-sizing: border-box;
       z-index: 10;
-      margin-bottom: 80px; /* space for bottom container */
+      margin-bottom: 10px; 
     }
 
     .profile {
@@ -107,27 +107,22 @@
     .status-dnd { background-color: #f23f43; }
     .status-offline { background-color: #747f8d; }
 
-    .guild-tag {
-      background-color: #2f3136;
-      color: #b9bbbe;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 12px;
-      user-select: none;
-      white-space: nowrap;
-      max-width: 150px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     #spotify {
-      width: 100%;
-      margin-top: 20px;
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-    }
+  width: auto;
+  max-width: 95%;
+  margin: 20px auto 0 auto;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(30, 30, 30, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 
     .spotify-track {
       display: flex;
@@ -293,72 +288,6 @@
     </div>
 
     <style>
-      .socials a {
-        position: relative;
-        display: inline-block;
-      }
-    
-      .socials img {
-        max-width: 40px;
-        height: auto;
-        user-select: none;
-        pointer-events: auto;
-        transition: transform 0.3s ease;
-        cursor: pointer;
-      }
-    
-      .socials img:hover {
-        transform: scale(1.2);
-      }
-    
-      .custom-tooltip {
-        position: absolute;
-        bottom: 125%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: #fff;
-        padding: 6px 10px;
-        border-radius: 22px;
-        border: 1.5px solid #171717;
-        white-space: nowrap;
-        font-size: 12px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-        z-index: 100;
-      }
-    
-      .custom-tooltip::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #171717 transparent transparent transparent;
-      }
-    
-      .socials a:hover .custom-tooltip {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    </style>
-    
-    <div class="socials">
-      <a href="https://open.spotify.com/user/31mtrznwx7iofjdfhpmpbyzvecx4" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spotify.svg" alt="Spotify" />
-        <div class="custom-tooltip">spotify</div>
-      </a>
-      <a href="https://discord.gg/phans" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg" alt="Discord" />
-        <div class="custom-tooltip">.gg/phans</div>
-      </a>
-    </div>
-    
-
-    <style>
       #bottom-container {
         display: inline-flex;
         gap: 5px; 
@@ -368,6 +297,10 @@
         width: fit-content;
         margin: 0 auto;
         border-radius: 12px;
+        background: rgba(30, 30, 30, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       }
     
       #bottom-container a {
@@ -397,7 +330,6 @@
         color: #fff;
         padding: 6px 10px;
         border-radius: 22px;
-        border: 1.5px solid #171717;
         white-space: nowrap;
         font-size: 12px;
         opacity: 0;
@@ -414,7 +346,7 @@
         margin-left: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: #171717 transparent transparent transparent;
+        border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
       }
     
       #bottom-container a:hover .custom-tooltip {
@@ -424,6 +356,10 @@
     </style>
     
     <div id="bottom-container">
+      <a href="https://discord.gg/phans" target="_blank" rel="noopener noreferrer">
+        <img src="icons/discord.gif" alt="Discord" />
+        <div class="custom-tooltip">.gg/phans</div>
+      </a>
       <a href="https://phans.bio/1" target="_blank" rel="noopener noreferrer">
         <img src="icons/2dlogo.png" alt="2D Logo" />
         <div class="custom-tooltip">phans.bio</div>
@@ -436,96 +372,190 @@
         <img src="icons/github.png" alt="GitHub Logo" />
         <div class="custom-tooltip">github</div>
       </a>
+      <a href="https://open.spotify.com/user/31mtrznwx7iofjdfhpmpbyzvecx4" target="_blank" rel="noopener noreferrer">
+        <img src="icons/spotify.gif" alt="Spotify" />
+        <div class="custom-tooltip">spotify</div>
+      </a>
     </div>
+    
     
   
   
-  <div id="reveal_screen">welcome!</div>
+    <div id="reveal_screen" style="text-align:center;">
+      <div class="text-center" bis_skin_checked="1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-music mx-auto mb-2" style="display:block; margin: 0 auto;">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <h2 style="font-size:1.25rem; font-weight:bold; margin-bottom:0.5rem;">this site has audio</h2>
+        <p style="font-size:0.875rem; opacity:0.8; margin-bottom:1rem;">click anywhere to enable audio and view the profile</p>
+      </div>
+    </div>
+    
 
-  <script>
-    const USER_ID = "1380957320745320581";
-
-    async function load() {
-      const res = await fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`);
-      const { data } = await res.json();
-
-      const avatar = data.discord_user.avatar
-        ? `https://cdn.discordapp.com/avatars/${USER_ID}/${data.discord_user.avatar}.png?size=128`
-        : `https://cdn.discordapp.com/embed/avatars/${Number(data.discord_user.discriminator) % 5}.png`;
-
-      document.getElementById("avatar").src = avatar;
-
-      document.getElementById("display-name").textContent = data.discord_user.display_name || data.discord_user.username;
-      document.getElementById("username").textContent = data.discord_user.username;
-
-      const statusDot = document.getElementById("status-dot");
-      statusDot.className = "status-dot";
-
-      if (data.discord_status === "online") {
-        statusDot.classList.add("status-online");
-      } else if (data.discord_status === "idle") {
-        statusDot.classList.add("status-idle");
-      } else if (data.discord_status === "dnd") {
-        statusDot.classList.add("status-dnd");
-      } else {
-        statusDot.classList.add("status-offline");
+    <style>
+      #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
       }
-
-      const guildTag = document.getElementById("guild-tag");
-      if (data.primary_guild && data.primary_guild.tag) {
-        guildTag.textContent = data.primary_guild.tag;
-        guildTag.title = data.primary_guild.name || "";
-        guildTag.style.display = "inline-block";
-      } else {
-        guildTag.style.display = "none";
+      #reveal_screen {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10;
+        transition: opacity 0.6s ease;
       }
-
-      const spotify = data.spotify;
-      const spotifyDiv = document.getElementById("spotify");
-
-      if (data.listening_to_spotify && spotify) {
-        spotifyDiv.style.display = "flex";
-        document.getElementById("spotify-img").src = spotify.album_art_url;
-        document.getElementById("song-name").textContent = spotify.song;
-        document.getElementById("song-artist").textContent = spotify.artist;
-        document.getElementById("total-time").textContent = msToMin(spotify.timestamps.end - spotify.timestamps.start);
-
-        const updateBar = () => {
-          const now = Date.now();
-          const elapsed = now - spotify.timestamps.start;
-          const total = spotify.timestamps.end - spotify.timestamps.start;
-          const percent = Math.min((elapsed / total) * 100, 100);
-          document.getElementById("bar-fill").style.width = `${percent}%`;
-          document.getElementById("current-time").textContent = msToMin(elapsed);
-          if (percent < 100) requestAnimationFrame(updateBar);
-        };
-
-        updateBar();
-      } else {
-        spotifyDiv.style.display = "none";
+      #reveal_screen.hide {
+        opacity: 0;
       }
-
-      document.getElementById("loader").style.display = "none";
-    }
-
-    function msToMin(ms) {
-      const m = Math.floor(ms / 60000);
-      const s = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');
-      return `${m}:${s}`;
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      load();
-      setInterval(load, 30000);
-
-      const reveal = document.getElementById("reveal_screen");
-      reveal.addEventListener("click", () => {
-        reveal.classList.add("hide");
-        setTimeout(() => {
-          reveal.style.display = "none";
-        }, 600);
+    </style>
+    
+    <video id="bg-video" autoplay muted loop playsinline>
+      <source src="assets/bg.mp4" type="video/mp4" />
+    </video>
+    
+    <audio id="bg-audio" loop>
+      <source src="assets/song.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+      const USER_ID = "1380957320745320581";
+      let currentTrackId = null;
+      let animationFrameId = null;
+      let lastTimestamps = null;
+    
+      function msToMin(ms) {
+        const m = Math.floor(ms / 60000);
+        const s = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+    
+      function updateProgressBar() {
+        if (!lastTimestamps) return;
+    
+        const now = Date.now();
+        const elapsed = now - lastTimestamps.start;
+        const total = lastTimestamps.end - lastTimestamps.start;
+        const percent = Math.min((elapsed / total) * 100, 100);
+    
+        document.getElementById("bar-fill").style.width = `${percent}%`;
+        document.getElementById("current-time").textContent = msToMin(elapsed);
+    
+        if (percent < 100) {
+          animationFrameId = requestAnimationFrame(updateProgressBar);
+        }
+      }
+    
+      function stopSpotify() {
+        currentTrackId = null;
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+        lastTimestamps = null;
+    
+        document.getElementById("spotify").style.display = "none";
+        document.getElementById("bar-fill").style.width = `0%`;
+        document.getElementById("current-time").textContent = `0:00`;
+      }
+    
+      function updateUI(data) {
+        const user = data.discord_user;
+        const spotify = data.spotify;
+    
+        const avatar = user.avatar
+          ? `https://cdn.discordapp.com/avatars/${USER_ID}/${user.avatar}.png?size=128`
+          : `https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator) % 5}.png`;
+        document.getElementById("avatar").src = avatar;
+    
+        document.getElementById("display-name").textContent = user.display_name || user.username;
+        document.getElementById("username").textContent = user.username;
+    
+        const statusDot = document.getElementById("status-dot");
+        statusDot.className = "status-dot";
+        statusDot.classList.add("status-" + (data.discord_status || "offline"));
+    
+        const guildTag = document.getElementById("guild-tag");
+        if (data.primary_guild && data.primary_guild.tag) {
+          guildTag.textContent = data.primary_guild.tag;
+          guildTag.title = data.primary_guild.name || "";
+          guildTag.style.display = "inline-block";
+        } else {
+          guildTag.style.display = "none";
+        }
+    
+        if (data.listening_to_spotify && spotify) {
+          const newTrack = spotify.track_id !== currentTrackId;
+          const timestampsChanged = JSON.stringify(spotify.timestamps) !== JSON.stringify(lastTimestamps);
+    
+          if (newTrack || timestampsChanged) {
+            currentTrackId = spotify.track_id;
+            lastTimestamps = { ...spotify.timestamps };
+    
+            document.getElementById("spotify").style.display = "flex";
+            document.getElementById("spotify-img").src = spotify.album_art_url;
+            document.getElementById("song-name").textContent = spotify.song;
+            document.getElementById("song-artist").textContent = spotify.artist;
+            document.getElementById("total-time").textContent = msToMin(spotify.timestamps.end - spotify.timestamps.start);
+    
+            cancelAnimationFrame(animationFrameId);
+            updateProgressBar();
+          }
+        } else {
+          stopSpotify();
+        }
+    
+        document.getElementById("loader").style.display = "none";
+      }
+    
+      document.addEventListener("DOMContentLoaded", () => {
+        const reveal = document.getElementById("reveal_screen");
+        const audio = document.getElementById("bg-audio");
+    
+        reveal.addEventListener("click", () => {
+          reveal.classList.add("hide");
+          audio.volume = 1;
+          audio.play().catch(err => {
+            console.error("Audio play failed:", err);
+          });
+          setTimeout(() => {
+            reveal.style.display = "none";
+          }, 600);
+        });
+    
+        const socket = new WebSocket("wss://api.lanyard.rest/socket");
+    
+        socket.addEventListener("open", () => {
+          socket.send(JSON.stringify({
+            op: 2,
+            d: { subscribe_to_id: USER_ID }
+          }));
+        });
+    
+        socket.addEventListener("message", event => {
+          const msg = JSON.parse(event.data);
+          if (msg.op === 1) {
+            setInterval(() => {
+              socket.send(JSON.stringify({ op: 3 }));
+            }, msg.d.heartbeat_interval);
+          } else if (msg.op === 0 && (msg.t === "INIT_STATE" || msg.t === "PRESENCE_UPDATE")) {
+            updateUI(msg.d);
+          }
+        });
       });
-    });
-  </script>
+    </script>
+    
 </body>
 </html>
