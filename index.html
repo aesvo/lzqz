@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #0b0b0b;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    #loader {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 10;
+      margin-bottom: 80px; /* space for bottom container */
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .display-name-container {
+      margin-top: 10px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .username {
+      margin-top: 6px;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2.5px solid #0b0b0b;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    .status-online { background-color: #23a55a; }
+    .status-idle { background-color: #f0b232; }
+    .status-dnd { background-color: #f23f43; }
+    .status-offline { background-color: #747f8d; }
+
+    .guild-tag {
+      background-color: #2f3136;
+      color: #b9bbbe;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      user-select: none;
+      white-space: nowrap;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #spotify {
+      width: 100%;
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spotify-track {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .spotify-cover {
+      width: 64px;
+      height: 64px;
+      border-radius: 6px;
+    }
+
+    .spotify-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .spotify-info strong {
+      font-size: 16px;
+    }
+
+    .bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: white;
+      border-radius: 4px;
+    }
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    .socials {
+      margin-top: 24px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .socials img {
+      width: 32px;
+      height: 32px;
+      filter: brightness(2) drop-shadow(0 0 4px #fff);
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .socials img:hover {
+      transform: scale(1.1);
+      filter: brightness(2.5) drop-shadow(0 0 8px #fff);
+    }
+
+    #reveal_screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: 700;
+      user-select: none;
+      cursor: pointer;
+      z-index: 20;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    #reveal_screen.hide {
+      transform: translateY(100vh);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #bottom-container {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      height: 60px;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 40;
+    }
+
+    #bottom-container img {
+      max-width: 120px;
+      height: auto;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @media (max-width: 500px) {
+      #content {
+        max-width: 90%;
+      }
+      .socials {
+        gap: 16px;
+      }
+      #reveal_screen {
+        font-size: 2rem;
+      }
+      #bottom-container {
+        max-width: 90%;
+      }
+      #bottom-container img {
+        max-width: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader"><div class="spinner"></div></div>
+
+  <div id="content">
+    <div class="profile">
+      <img id="avatar" class="avatar" src="" alt="avatar" />
+      <div class="display-name-container">
+        <div id="display-name"></div>
+        <div id="status-dot" class="status-dot status-offline"></div>
+        <div id="guild-tag" class="guild-tag" title=""></div>
+      </div>
+      <div id="username" class="username"></div>
+    </div>
+
+    <div id="spotify">
+      <div class="spotify-track">
+        <img id="spotify-img" class="spotify-cover" src="" />
+        <div class="spotify-info">
+          <strong id="song-name">Song</strong>
+          <span id="song-artist">Artist</span>
+        </div>
+      </div>
+      <div class="bar">
+        <div id="bar-fill" class="bar-fill"></div>
+      </div>
+      <div class="time">
+        <span id="current-time">0:00</span>
+        <span id="total-time">0:00</span>
+      </div>
+    </div>
+
+    <style>
+      .socials a {
+        position: relative;
+        display: inline-block;
+      }
+    
+      .socials img {
+        max-width: 40px;
+        height: auto;
+        user-select: none;
+        pointer-events: auto;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+    
+      .socials img:hover {
+        transform: scale(1.2);
+      }
+    
+      .custom-tooltip {
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 22px;
+        border: 1.5px solid #171717;
+        white-space: nowrap;
+        font-size: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 100;
+      }
+    
+      .custom-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #171717 transparent transparent transparent;
+      }
+    
+      .socials a:hover .custom-tooltip {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+    
+    <div class="socials">
+      <a href="https://open.spotify.com/user/31mtrznwx7iofjdfhpmpbyzvecx4" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spotify.svg" alt="Spotify" />
+        <div class="custom-tooltip">spotify</div>
+      </a>
+      <a href="https://discord.gg/phans" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg" alt="Discord" />
+        <div class="custom-tooltip">.gg/phans</div>
+      </a>
+    </div>
+    
+
+    <style>
+      #bottom-container {
+        display: inline-flex;
+        gap: 5px; 
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px; 
+        width: fit-content;
+        margin: 0 auto;
+        border-radius: 12px;
+      }
+    
+      #bottom-container a {
+        position: relative;
+        display: inline-block;
+      }
+    
+      #bottom-container img {
+        max-width: 40px;
+        height: auto;
+        user-select: none;
+        pointer-events: auto;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+    
+      #bottom-container img:hover {
+        transform: scale(1.2);
+      }
+    
+      .custom-tooltip {
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 22px;
+        border: 1.5px solid #171717;
+        white-space: nowrap;
+        font-size: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 100;
+      }
+    
+      .custom-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #171717 transparent transparent transparent;
+      }
+    
+      #bottom-container a:hover .custom-tooltip {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+    
+    <div id="bottom-container">
+      <a href="https://phans.bio/1" target="_blank" rel="noopener noreferrer">
+        <img src="icons/2dlogo.png" alt="2D Logo" />
+        <div class="custom-tooltip">phans.bio</div>
+      </a>
+      <a href="https://slat.cc/gpt" target="_blank" rel="noopener noreferrer">
+        <img src="icons/snake.png" alt="Snake Logo" />
+        <div class="custom-tooltip">slat.cc</div>
+      </a>
+      <a href="https://github.com/aesvo" target="_blank" rel="noopener noreferrer">
+        <img src="icons/github.png" alt="GitHub Logo" />
+        <div class="custom-tooltip">github</div>
+      </a>
+    </div>
+    
+  
+  
+  <div id="reveal_screen">welcome!</div>
+
+  <script>
+    const USER_ID = "1380957320745320581";
+
+    async function load() {
+      const res = await fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`);
+      const { data } = await res.json();
+
+      const avatar = data.discord_user.avatar
+        ? `https://cdn.discordapp.com/avatars/${USER_ID}/${data.discord_user.avatar}.png?size=128`
+        : `https://cdn.discordapp.com/embed/avatars/${Number(data.discord_user.discriminator) % 5}.png`;
+
+      document.getElementById("avatar").src = avatar;
+
+      document.getElementById("display-name").textContent = data.discord_user.display_name || data.discord_user.username;
+      document.getElementById("username").textContent = data.discord_user.username;
+
+      const statusDot = document.getElementById("status-dot");
+      statusDot.className = "status-dot";
+
+      if (data.discord_status === "online") {
+        statusDot.classList.add("status-online");
+      } else if (data.discord_status === "idle") {
+        statusDot.classList.add("status-idle");
+      } else if (data.discord_status === "dnd") {
+        statusDot.classList.add("status-dnd");
+      } else {
+        statusDot.classList.add("status-offline");
+      }
+
+      const guildTag = document.getElementById("guild-tag");
+      if (data.primary_guild && data.primary_guild.tag) {
+        guildTag.textContent = data.primary_guild.tag;
+        guildTag.title = data.primary_guild.name || "";
+        guildTag.style.display = "inline-block";
+      } else {
+        guildTag.style.display = "none";
+      }
+
+      const spotify = data.spotify;
+      const spotifyDiv = document.getElementById("spotify");
+
+      if (data.listening_to_spotify && spotify) {
+        spotifyDiv.style.display = "flex";
+        document.getElementById("spotify-img").src = spotify.album_art_url;
+        document.getElementById("song-name").textContent = spotify.song;
+        document.getElementById("song-artist").textContent = spotify.artist;
+        document.getElementById("total-time").textContent = msToMin(spotify.timestamps.end - spotify.timestamps.start);
+
+        const updateBar = () => {
+          const now = Date.now();
+          const elapsed = now - spotify.timestamps.start;
+          const total = spotify.timestamps.end - spotify.timestamps.start;
+          const percent = Math.min((elapsed / total) * 100, 100);
+          document.getElementById("bar-fill").style.width = `${percent}%`;
+          document.getElementById("current-time").textContent = msToMin(elapsed);
+          if (percent < 100) requestAnimationFrame(updateBar);
+        };
+
+        updateBar();
+      } else {
+        spotifyDiv.style.display = "none";
+      }
+
+      document.getElementById("loader").style.display = "none";
+    }
+
+    function msToMin(ms) {
+      const m = Math.floor(ms / 60000);
+      const s = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      load();
+      setInterval(load, 30000);
+
+      const reveal = document.getElementById("reveal_screen");
+      reveal.addEventListener("click", () => {
+        reveal.classList.add("hide");
+        setTimeout(() => {
+          reveal.style.display = "none";
+        }, 600);
+      });
+    });
+  </script>
+</body>
+</html>
