@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>loser</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #000 60%, #050505 100%);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      animation: spin 2.5s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    #content {
+      opacity: 0;
+      display: none;
+      align-items: center;
+      flex-direction: column;
+      perspective: 1000px;
+      padding: 20px 30px;
+      transition: opacity 0.6s ease;
+      width: 100%;
+      max-width: none;
+    }
+    .profile-box {
+      border: 6px solid rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      padding: 20px 25px 60px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.1);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+      width: auto;
+      max-width: 600px;
+      margin: 0 20px;
+      position: relative;
+      overflow: visible;
+    }
+    .avatar-container {
+      position: relative;
+      display: inline-block;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .status-indicator {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2.5px solid black;
+      background-color: gray;
+      box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    }
+    .status-online {
+      background-color: #43b581;
+      box-shadow: 0 0 12px #43b581;
+    }
+    .status-idle {
+      background-color: #faa61a;
+      box-shadow: 0 0 12px #faa61a;
+    }
+    .status-dnd {
+      background-color: #f04747;
+      box-shadow: 0 0 12px #f04747;
+    }
+    .status-invisible, .status-offline {
+      background-color: #747f8d;
+      box-shadow: none;
+      opacity: 0.6;
+    }
+    .username-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-weight: bold;
+      text-shadow: 0 0 10px white;
+      color: white;
+      user-select: text;
+    }
+    .display-name {
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .discord-username {
+      font-size: 13px;
+      font-weight: normal;
+      opacity: 0.75;
+      color: #ccc;
+      user-select: text;
+    }
+    #custom-status {
+      position: absolute;
+      top: -48px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 260px;
+      font-size: 14px;
+      user-select: none;
+      color: #dcddde;
+      background: #292b2f;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.8);
+      font-style: normal;
+      white-space: nowrap;
+      line-height: 1.2;
+      font-weight: 500;
+      pointer-events: none;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      letter-spacing: 0.02em;
+      border: 1.5px solid #40444b;
+      box-sizing: border-box;
+    }
+    .spotify-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      color: white;
+      transition: transform 0.2s;
+      width: 100%;
+      max-width: 560px;
+      box-sizing: border-box;
+    }
+    .spotify-card:hover {
+      transform: scale(1.02);
+    }
+    .spotify-top {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .spotify-card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .spotify-text {
+      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .spotify-text strong {
+      display: block;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-bar-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .progress-time {
+      font-size: 12px;
+      width: 38px;
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-family: monospace;
+    }
+    .progress-bar-background {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+    }
+    .progress-bar-fill {
+      height: 6px;
+      background: rgba(255,255,255,0.8);
+      width: 0%;
+      border-radius: 3px 0 0 3px;
+      transition: width 0.3s ease;
+    }
+    .socials {
+      display: flex;
+      gap: 25px;
+      margin-top: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .socials a img {
+      width: 30px;
+      height: 30px;
+      filter: invert(1) drop-shadow(0 0 8px white);
+      transition: transform 0.2s;
+    }
+    .socials a img:hover {
+      transform: scale(1.1);
+    }
+
+    .spotify-embed {
+      margin-top: 10px;
+      width: 100%;
+      max-width: 560px;
+      height: 80px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body>
+  <div id="loader"><div class="spinner"></div></div>
+  <div id="content">
+    <div class="profile-box" id="profile-box">
+      <div class="avatar-container">
+        <img id="avatar" class="avatar" src="" alt="Avatar" />
+        <div id="custom-status"></div>
+        <div class="status-indicator" id="status-indicator" title="Status"></div>
+      </div>
+      <div class="username-container">
+        <div class="display-name" id="display-name"></div>
+        <div class="discord-username" id="discord-username"></div>
+      </div>
+      <div id="spotify-container" style="width:100%; box-sizing: border-box;">
+        <div style="opacity: 0.5;">Not listening to Spotify</div>
+        <iframe class="spotify-embed" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
+      <div class="socials">
+        <a href="https://open.spotify.com/user/31mtrznwx7iofjdfhpmpbyzvecx4" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/spotify.svg" alt="Spotify"></a>
+        <a href="https://discord.com/invite/phans" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord"></a>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function(e) {
+      if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) return false;
+    };
+
+    const USER_ID = "1380957320745320581";
+
+    function mapStatusToClass(status) {
+      switch(status) {
+        case "online": return "status-online";
+        case "idle": return "status-idle";
+        case "dnd": return "status-dnd";
+        case "offline": return "status-offline";
+        case "invisible": return "status-invisible";
+        default: return "status-offline";
+      }
+    }
+
+    function msToTime(duration) {
+      const seconds = Math.floor((duration / 1000) % 60);
+      const minutes = Math.floor((duration / (1000 * 60)) % 60);
+      return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    let spotifyData = null;
+    let spotifyStartTime = 0;
+    let spotifyEndTime = 0;
+
+    async function loadData() {
+      try {
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`);
+        const { data } = await res.json();
+
+        const avatar = data.discord_user.avatar;
+        const discriminator = data.discord_user.discriminator;
+        const avatarUrl = avatar
+          ? `https://cdn.discordapp.com/avatars/${USER_ID}/${avatar}.png?size=512`
+          : `https://cdn.discordapp.com/embed/avatars/${Number(discriminator) % 5}.png`;
+
+        document.getElementById("avatar").src = avatarUrl;
+
+        const displayName = data.discord_user.display_name || data.discord_user.username;
+        document.getElementById("display-name").textContent = displayName;
+
+        const discordUsername = `${data.discord_user.username}`;
+        document.getElementById("discord-username").textContent = discordUsername;
+
+        const statusIndicator = document.getElementById("status-indicator");
+        const status = data.discord_status || "offline";
+        statusIndicator.className = "status-indicator " + mapStatusToClass(status);
+        statusIndicator.title = status.charAt(0).toUpperCase() + status.slice(1);
+
+        const customStatusElem = document.getElementById("custom-status");
+        const customStatus = data.activities?.find(a => a.type === 4 && a.state);
+        if (customStatus && customStatus.state) {
+          customStatusElem.textContent = customStatus.state;
+          customStatusElem.style.display = "block";
+        } else {
+          customStatusElem.style.display = "none";
+          customStatusElem.textContent = "";
+        }
+
+        const container = document.getElementById("spotify-container");
+        if (data.listening_to_spotify && data.spotify) {
+          spotifyData = data.spotify;
+          spotifyStartTime = spotifyData.timestamps.start;
+          spotifyEndTime = spotifyData.timestamps.end;
+
+          const trackUrl = `https://open.spotify.com/track/${spotifyData.track_id}`;
+
+          container.innerHTML = `
+            <a class="spotify-card" href="${trackUrl}" target="_blank" aria-label="Spotify track: ${spotifyData.song} by ${spotifyData.artist}">
+              <div class="spotify-top">
+                <img src="${spotifyData.album_art_url}" alt="Album Art">
+                <div class="spotify-text">
+                  <strong>${spotifyData.song}</strong>
+                  by ${spotifyData.artist}
+                </div>
+              </div>
+              <div class="progress-bar-wrapper" aria-hidden="true">
+                <div class="progress-time" id="progress-current">0:00</div>
+                <div class="progress-bar-background">
+                  <div class="progress-bar-fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="progress-time" id="progress-total">${msToTime(spotifyEndTime - spotifyStartTime)}</div>
+              </div>
+            </a>
+          `;
+          updateSpotifyProgress();
+        } else {
+          spotifyData = null;
+          container.innerHTML = `
+            <div style="opacity: 0.5;">Not listening to Spotify</div>
+            <iframe class="spotify-embed" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          `;
+        }
+      } catch {
+        document.getElementById("display-name").textContent = "Error loading Discord";
+        document.getElementById("discord-username").textContent = "";
+        document.getElementById("spotify-container").innerHTML = '<div style="opacity:0.5;">Unable to fetch data.</div>';
+      }
+
+      document.getElementById("loader").style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        const content = document.getElementById("content");
+        content.style.display = "flex";
+        content.style.opacity = 1;
+      }, 600);
+    }
+
+    function updateSpotifyProgress() {
+      if (!spotifyData) return;
+      const now = Date.now();
+      const currentTime = Math.min(Math.max(now, spotifyStartTime), spotifyEndTime);
+      const elapsed = currentTime - spotifyStartTime;
+      const duration = spotifyEndTime - spotifyStartTime;
+      const progressPercent = (elapsed / duration) * 100;
+
+      const progressFill = document.getElementById("progress-fill");
+      const progressCurrent = document.getElementById("progress-current");
+
+      if (progressFill && progressCurrent) {
+        progressFill.style.width = `${progressPercent}%`;
+        progressCurrent.textContent = msToTime(elapsed);
+      }
+
+      if (currentTime < spotifyEndTime) {
+        requestAnimationFrame(updateSpotifyProgress);
+      }
+    }
+
+    const profileBox = document.getElementById("profile-box");
+    document.getElementById("content").addEventListener('mousemove', e => {
+      const rect = profileBox.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      const maxRotation = 12;
+      const rotateX = (-deltaY / rect.height) * maxRotation;
+      const rotateY = (deltaX / rect.width) * maxRotation;
+      profileBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    document.getElementById("content").addEventListener('mouseleave', e => {
+      profileBox.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    });
+
+    loadData();
+    setInterval(loadData, 30000);
+  </script>
+</body>
+</html>
