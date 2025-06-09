@@ -10,6 +10,41 @@
   <meta property="og:url" content="https://i.am.a.rapist.gatorkeys.xyz/" />
   <meta property="og:type" content="website" />
   <style>
+
+</style><style id="haunt-cursor-style">
+  html, html *, 
+  body, body *,
+  div, span, p, h1, h2, h3, h4, h5, h6,
+  a, button, input, textarea, select, label,
+  [role="button"], 
+  input[type="submit"], 
+  input[type="button"], 
+  input[type="range"],
+  input[type="range"]::-webkit-slider-thumb,
+  input[type="range"]::-moz-range-thumb,
+  .cursor-pointer,
+  .btn, .link {
+    cursor: url("icons/cursor.png") 14 14, auto !important;
+  }
+  * {
+    cursor: url("icons/cursor.png") 14 14, auto !important;
+  }
+  a:hover, button:hover, [role="button"]:hover,
+  input[type="submit"]:hover, input[type="button"]:hover {
+    cursor: url("icons/cursor.png") 14 14, auto !important;
+  }
+  html {
+    cursor: url("icons/cursor.png") 14 14, auto !important;
+  }
+  body {
+    cursor: url("icons/cursor.png") 14 14, auto !important;
+  }
+</style>
+<style id="immediate-cursor-override">
+  * {
+    cursor: url("icons/cursor.png") 14 14, auto !important;
+  }
+    
     html, body {
       margin: 0;
       padding: 0;
@@ -287,6 +322,19 @@
       </div>
     </div>
 
+    <div id="buldak" style="display: none; flex-direction: column; align-items: center; background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; max-width: 90%; width: fit-content; margin: 0 auto 20px auto; font-family: system-ui, sans-serif;">
+      <img id="buldak-img" src="" alt="Album Art" style="width: 64px; height: 64px; border-radius: 8px; margin-bottom: 12px;">
+      <div style="font-size: 1.1rem; font-weight: bold;" id="buldak-name">Song Title</div>
+      <div style="font-size: 0.9rem; opacity: 0.8;" id="buldak-artist">Artist</div>
+      <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; margin: 12px 0; overflow: hidden;">
+        <div id="buldak-fill" style="height: 100%; width: 0%; background: #1DB954;"></div>
+      </div>
+      <div style="font-size: 0.8rem;">
+        <span id="buldak-current">0:00</span> / <span id="buldak-total">0:00</span>
+      </div>
+    </div>
+    
+
     <style>
       #bottom-container {
         display: inline-flex;
@@ -357,16 +405,32 @@
     
     <div id="bottom-container">
       <a href="https://discord.gg/phans" target="_blank" rel="noopener noreferrer">
-        <img src="icons/discord.gif" alt="Discord" />
+        <img src="icons/venom.gif" alt="Discord" />
         <div class="custom-tooltip">.gg/phans</div>
+      </a>
+      <a href="https://discord.gg/KSC33Cz2ft" target="_blank" rel="noopener noreferrer">
+        <img src="icons/discord.gif" alt="Discord" />
+        <div class="custom-tooltip">.gg/ryong</div>
       </a>
       <a href="https://phans.bio/1" target="_blank" rel="noopener noreferrer">
         <img src="icons/2dlogo.gif" alt="2D Logo" />
-        <div class="custom-tooltip">phans.bio</div>
+        <div class="custom-tooltip">phans.bio page</div>
       </a>
       <a href="https://slat.cc/gpt" target="_blank" rel="noopener noreferrer">
         <img src="icons/snake.gif" alt="Snake Logo" />
-        <div class="custom-tooltip">slat.cc</div>
+        <div class="custom-tooltip">slat.cc page</div>
+      </a>
+      <a href="https://haunt.gg/hris" target="_blank" rel="noopener noreferrer">
+        <img src="icons/rock.gif" alt="Snake Logo" />
+        <div class="custom-tooltip">haunt.gg page</div>
+      </a>
+      <a href="https://wound.lol/xd2323" target="_blank" rel="noopener noreferrer">
+        <img src="icons/fun.gif" alt="Snake Logo" />
+        <div class="custom-tooltip">wound.lol page my bot created (3/200)</div>
+      </a>
+      <a href="https://drift.rip/5" target="_blank" rel="noopener noreferrer">
+        <img src="icons/knight.gif" alt="GitHub Logo" />
+        <div class="custom-tooltip">berk.lol page</div>
       </a>
       <a href="https://github.com/aesvo" target="_blank" rel="noopener noreferrer">
         <img src="icons/github.gif" alt="GitHub Logo" />
@@ -378,9 +442,6 @@
       </a>
     </div>
     
-    
-  
-  
     <div id="reveal_screen" style="position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center;">
       <div class="text-center" style="text-align: center;">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-music mx-auto mb-2" style="display:block; margin: 0 auto;">
@@ -495,11 +556,13 @@
         border-width: 5px;
         border-style: solid;
         border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
-      }
+      } 
     </style>
+
+    
     
     <div id="about-me">
-      <div style="font-weight: normal; font-size: 1.1rem; margin-bottom: 12px; color: white;">about me (scroll)</div>
+      <div style="font-weight: normal; font-size: 1.1rem; margin-bottom: 12px; color: rgb(221, 221, 221);">about me</div>
       <div>
         i'm 15 turning
         <a href="javascript:void(0)" class="no-color" id="birthday-link">
@@ -508,20 +571,8 @@
         </a>
         <br>
         everything weird i say is <strong>JUST A JOKE</strong><br><br>
-        check out my <a href="https://phans.bio/1" target="_blank">phans.bio</a> profile, tryna hit 1,100 views<br>
-        coding since 10<br>
-        im blasian<br><br>
-        no you wont get my face or any real social media<br>
-        no i won't do a face reveal, no i wont voice reveal<br><br>
-        no i don't care if i get exposed for being weird ect<br>
-        i have 7,856 discord alts, pretty sure half disabled<br><br>
-        no i wont code for you<br>
-        no im not for hire (on break)<br>
-        currently: in south korea<br><br>
-        best country to use on ur vpn and to troll retards?<br>
-        - philippines and india<br><br>
-        ts site is still in the works ik its bad :c <br>
-        text below is my discord state status
+        check out my <a href="https://phans.bio/1" target="_blank">phans.bio</a><br>
+        i made this because i was bored
 
       </div>
     </div>
@@ -563,6 +614,7 @@
       white-space: pre-wrap;
       overflow-wrap: break-word;
     "></div>
+    
     
     <style>
       #bg-video {
@@ -778,6 +830,8 @@
           }
         });
       });
+
+      
     </script>
 </body>
 </html>
