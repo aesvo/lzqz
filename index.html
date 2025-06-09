@@ -629,28 +629,6 @@
       const days = daysUntilAugust16();
       tooltip.textContent = `basically in ${days} day${days === 1 ? '' : 's'}`;
     </script>
-    
-    <div id="custom-status" style="
-      display: none;
-      background: rgba(30, 30, 30, 0.4);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      padding: 20px 25px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      font-size: 1rem;
-      margin-bottom: 3rem;
-      max-width: 90%;
-      margin-top: 5px;
-      width: fit-content;
-      word-break: break-word;
-      white-space: pre-wrap;
-      overflow-wrap: break-word;
-    "></div>
-    
-    
     <style>
       #bg-video {
         position: fixed;
@@ -798,15 +776,6 @@
           guildTag.style.display = "inline-block";
         } else {
           guildTag.style.display = "none";
-        }
-    
-        const customStatus = data.activities?.find(act => act.type === 4);
-        if (customStatus && customStatus.state) {
-          const cs = document.getElementById("custom-status");
-          cs.textContent = customStatus.state;
-          cs.style.display = "block";
-        } else {
-          document.getElementById("custom-status").style.display = "none";
         }
     
         if (data.listening_to_spotify && spotify) {
