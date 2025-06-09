@@ -361,15 +361,15 @@
         <div class="custom-tooltip">.gg/phans</div>
       </a>
       <a href="https://phans.bio/1" target="_blank" rel="noopener noreferrer">
-        <img src="icons/2dlogo.png" alt="2D Logo" />
+        <img src="icons/2dlogo.gif" alt="2D Logo" />
         <div class="custom-tooltip">phans.bio</div>
       </a>
       <a href="https://slat.cc/gpt" target="_blank" rel="noopener noreferrer">
-        <img src="icons/snake.png" alt="Snake Logo" />
+        <img src="icons/snake.gif" alt="Snake Logo" />
         <div class="custom-tooltip">slat.cc</div>
       </a>
       <a href="https://github.com/aesvo" target="_blank" rel="noopener noreferrer">
-        <img src="icons/github.png" alt="GitHub Logo" />
+        <img src="icons/github.gif" alt="GitHub Logo" />
         <div class="custom-tooltip">github</div>
       </a>
       <a href="https://open.spotify.com/user/31mtrznwx7iofjdfhpmpbyzvecx4" target="_blank" rel="noopener noreferrer">
@@ -381,19 +381,188 @@
     
   
   
-    <div id="reveal_screen" style="text-align:center;">
-      <div class="text-center" bis_skin_checked="1">
+    <div id="reveal_screen" style="position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center;">
+      <div class="text-center" style="text-align: center;">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-music mx-auto mb-2" style="display:block; margin: 0 auto;">
           <path d="M9 18V5l12-2v13"></path>
           <circle cx="6" cy="18" r="3"></circle>
           <circle cx="18" cy="16" r="3"></circle>
         </svg>
         <h2 style="font-size:1.25rem; font-weight:bold; margin-bottom:0.5rem;">this site has audio</h2>
-        <p style="font-size:0.875rem; opacity:0.8; margin-bottom:1rem;">click anywhere to enable audio and view the profile</p>
+        <p style="font-size:0.875rem; opacity:0.8; margin-bottom:1rem;">click anywhere to enable audio</p>
+        <button id="go_muted">don't play audio</button>
       </div>
     </div>
     
+    <video id="bg-video" autoplay muted loop playsinline>
+      <source src="assets/bg.mp4" type="video/mp4" />
+    </video>
+    
+    <audio id="bg-audio" loop>
+      <source src="assets/song.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    
+    <audio id="bg_audio" src="song.mp3"></audio>
+    
+    <style>
+      #about-me {
+        display: block;
+        background: rgba(30, 30, 30, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        padding: 16px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1rem;
+        margin: 10px 0;
+        max-width: 500px;
+        width: 90%;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        text-align: center;
+        line-height: 1.5;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+          Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        position: relative;
+        max-height: 180px;
+        overflow-y: auto;
+      
+      }
+      #about-me::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #about-me::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.5); 
+        border-radius: 3px;
+        min-height: 10px;
+      }
+    
+      #about-me a {
+        color: #80b3ff;
+        text-decoration: none;
+        transition: border-bottom 0.3s ease;
+        border-bottom: 2px solid transparent;
+        position: relative;
+        cursor: pointer;
+      }
+    
+      #about-me a:hover {
+        border-bottom: 2px solid #80b3ff;
+      }
+    
+      #about-me a.no-color {
+        color: white !important;
+      }
+    
+      #about-me a.no-color:hover {
+        color: white !important;
+        border-bottom: none !important;
+        cursor: default;
+      }
+    
+      #about-me .custom-tooltip {
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 22px;
+        white-space: nowrap;
+        font-size: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 100;
+      }
+    
+      #about-me a.no-color:hover .custom-tooltip {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    
+      #about-me .custom-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+      }
+    </style>
+    
+    <div id="about-me">
+      <div style="font-weight: normal; font-size: 1.1rem; margin-bottom: 12px; color: white;">about me (scroll)</div>
+      <div>
+        i'm 15 turning
+        <a href="javascript:void(0)" class="no-color" id="birthday-link">
+          16 this august
+          <div class="custom-tooltip" id="tooltip-text">HOW LONG until august 16, ... days</div>
+        </a>
+        <br>
+        everything weird i say is <strong>JUST A JOKE</strong><br><br>
+        check out my <a href="https://phans.bio/1" target="_blank">phans.bio</a> profile, tryna hit 1,100 views<br>
+        coding since 10<br><br>
+        no you wont get my face or any actual real social media<br>
+        no i won't do a face reveal, no i wont voice reveal<br><br>
+        no i don't care if i get exposed for being weird ect<br>
+        i have 7,856 discord alts, pretty sure half disabled<br><br>
+        no i wont code for you<br>
+        no im not for hire (on break)<br>
+        currently: in south korea<br><br>
+        best country to use on ur vpn and to troll retards?<br>
+        - philippines and india<br><br>
+        ts site is still in the works ik its bad :c <br>
+        text below is my discord state status
 
+      </div>
+    </div>
+    
+    <script>
+      function daysUntilAugust16() {
+        const now = new Date();
+        let year = now.getFullYear();
+        const targetDate = new Date(year, 7, 16);
+        if (now > targetDate) {
+          targetDate.setFullYear(year + 1);
+        }
+        const diffTime = targetDate - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      }
+    
+      const tooltip = document.getElementById('tooltip-text');
+      const days = daysUntilAugust16();
+      tooltip.textContent = `basically in ${days} day${days === 1 ? '' : 's'}`;
+    </script>
+    
+    <div id="custom-status" style="
+      display: none;
+      background: rgba(30, 30, 30, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      padding: 20px 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+      max-width: 90%;
+      margin-top: 5px;
+      width: fit-content;
+      word-break: break-word;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    "></div>
+    
     <style>
       #bg-video {
         position: fixed;
@@ -421,18 +590,70 @@
       #reveal_screen.hide {
         opacity: 0;
       }
+      #go_muted {
+        width: auto;
+        max-width: 95%;
+        margin: 20px auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: rgba(30, 30, 30, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        padding: 15px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        animation: fadeInUp 1s ease-out;
+        transition: transform 0.3s ease;
+        justify-content: center;
+        align-items: center;
+      }
+      #go_muted:hover {
+        transform: scale(1.1);
+      }
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeDown {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(50px); }
+      }
+      .fade-out {
+        animation: fadeDown 0.6s ease forwards;
+      }
     </style>
     
-    <video id="bg-video" autoplay muted loop playsinline>
-      <source src="assets/bg.mp4" type="video/mp4" />
-    </video>
-    
-    <audio id="bg-audio" loop>
-      <source src="assets/song.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-    
     <script>
+      const revealScreen = document.getElementById('reveal_screen');
+      const goMutedBtn = document.getElementById('go_muted');
+      const audio = document.getElementById('bg_audio');
+    
+      let mutedClick = false;
+    
+      goMutedBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mutedClick = true;
+        revealScreen.classList.add('fade-out');
+        setTimeout(() => {
+          revealScreen.style.display = 'none';
+        }, 600);
+      });
+    
+      revealScreen.addEventListener('click', () => {
+        if (!mutedClick) {
+          audio.play();
+        }
+        revealScreen.classList.add('fade-out');
+        setTimeout(() => {
+          revealScreen.style.display = 'none';
+        }, 600);
+      });
+    
       const USER_ID = "1380957320745320581";
       let currentTrackId = null;
       let animationFrameId = null;
@@ -446,15 +667,12 @@
     
       function updateProgressBar() {
         if (!lastTimestamps) return;
-    
         const now = Date.now();
         const elapsed = now - lastTimestamps.start;
         const total = lastTimestamps.end - lastTimestamps.start;
         const percent = Math.min((elapsed / total) * 100, 100);
-    
         document.getElementById("bar-fill").style.width = `${percent}%`;
         document.getElementById("current-time").textContent = msToMin(elapsed);
-    
         if (percent < 100) {
           animationFrameId = requestAnimationFrame(updateProgressBar);
         }
@@ -465,7 +683,6 @@
         cancelAnimationFrame(animationFrameId);
         animationFrameId = null;
         lastTimestamps = null;
-    
         document.getElementById("spotify").style.display = "none";
         document.getElementById("bar-fill").style.width = `0%`;
         document.getElementById("current-time").textContent = `0:00`;
@@ -479,7 +696,6 @@
           ? `https://cdn.discordapp.com/avatars/${USER_ID}/${user.avatar}.png?size=128`
           : `https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator) % 5}.png`;
         document.getElementById("avatar").src = avatar;
-    
         document.getElementById("display-name").textContent = user.display_name || user.username;
         document.getElementById("username").textContent = user.username;
     
@@ -496,20 +712,26 @@
           guildTag.style.display = "none";
         }
     
+        const customStatus = data.activities?.find(act => act.type === 4);
+        if (customStatus && customStatus.state) {
+          const cs = document.getElementById("custom-status");
+          cs.textContent = customStatus.state;
+          cs.style.display = "block";
+        } else {
+          document.getElementById("custom-status").style.display = "none";
+        }
+    
         if (data.listening_to_spotify && spotify) {
           const newTrack = spotify.track_id !== currentTrackId;
           const timestampsChanged = JSON.stringify(spotify.timestamps) !== JSON.stringify(lastTimestamps);
-    
           if (newTrack || timestampsChanged) {
             currentTrackId = spotify.track_id;
             lastTimestamps = { ...spotify.timestamps };
-    
             document.getElementById("spotify").style.display = "flex";
             document.getElementById("spotify-img").src = spotify.album_art_url;
             document.getElementById("song-name").textContent = spotify.song;
             document.getElementById("song-artist").textContent = spotify.artist;
             document.getElementById("total-time").textContent = msToMin(spotify.timestamps.end - spotify.timestamps.start);
-    
             cancelAnimationFrame(animationFrameId);
             updateProgressBar();
           }
@@ -556,6 +778,5 @@
         });
       });
     </script>
-    
 </body>
 </html>
