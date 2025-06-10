@@ -309,7 +309,10 @@
       <div class="spotify-track">
         <img id="spotify-img" class="spotify-cover" src="" />
         <div class="spotify-info">
-          <strong id="song-name">Song</strong>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <img src="icons/song.gif" alt="Now Playing" style="width: 16px; height: 16px;">
+            <strong id="song-name">Song</strong>
+          </div>
           <span id="song-artist">Artist</span>
         </div>
       </div>
@@ -321,18 +324,8 @@
         <span id="total-time">0:00</span>
       </div>
     </div>
-
-    <div id="buldak" style="display: none; flex-direction: column; align-items: center; background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; max-width: 90%; width: fit-content; margin: 0 auto 20px auto; font-family: system-ui, sans-serif;">
-      <img id="buldak-img" src="" alt="Album Art" style="width: 64px; height: 64px; border-radius: 8px; margin-bottom: 12px;">
-      <div style="font-size: 1.1rem; font-weight: bold;" id="buldak-name">Song Title</div>
-      <div style="font-size: 0.9rem; opacity: 0.8;" id="buldak-artist">Artist</div>
-      <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; margin: 12px 0; overflow: hidden;">
-        <div id="buldak-fill" style="height: 100%; width: 0%; background: #1DB954;"></div>
-      </div>
-      <div style="font-size: 0.8rem;">
-        <span id="buldak-current">0:00</span> / <span id="buldak-total">0:00</span>
-      </div>
-    </div>
+    
+    
     
 
     <style>
@@ -404,16 +397,8 @@
     </style>
     
     <div id="bottom-container">
-      <a href="https://discord.gg/phans" target="_blank" rel="noopener noreferrer">
-        <img src="icons/venom.gif" alt="Discord" />
-        <div class="custom-tooltip">.gg/phans</div>
-      </a>
-      <a href="https://discord.gg/KSC33Cz2ft" target="_blank" rel="noopener noreferrer">
-        <img src="icons/discord.gif" alt="Discord" />
-        <div class="custom-tooltip">.gg/ryong</div>
-      </a>
       <a href="https://phans.bio/1" target="_blank" rel="noopener noreferrer">
-        <img src="icons/2dlogo.gif" alt="2D Logo" />
+        <img src="icons/discord.gif" alt="2D Logo" />
         <div class="custom-tooltip">phans.bio page</div>
       </a>
       <a href="https://slat.cc/gpt" target="_blank" rel="noopener noreferrer">
@@ -424,29 +409,9 @@
         <img src="icons/rock.gif" alt="Snake Logo" />
         <div class="custom-tooltip">haunt.gg page</div>
       </a>
-      <a href="" target="_blank" rel="noopener noreferrer">
-        <img src="icons/song.gif" alt="Snake Logo" />
-        <div class="custom-tooltip">formerly gatorkeys</div>
-      </a>
-      <a href="https://guns.lol/fuckdykes" target="_blank" rel="noopener noreferrer">
-        <img src="icons/fire.gif" alt="Snake Logo" />
-        <div class="custom-tooltip">guns.lol page my bot created (9/1576)</div>
-      </a>
-      <a href="https://wound.lol/xd2323" target="_blank" rel="noopener noreferrer">
-        <img src="icons/fun.gif" alt="Snake Logo" />
-        <div class="custom-tooltip">wound.lol page my bot created (3/200)</div>
-      </a>
       <a href="https://drift.rip/5" target="_blank" rel="noopener noreferrer">
         <img src="icons/knight.gif" alt="GitHub Logo" />
         <div class="custom-tooltip">drift.rip page</div>
-      </a>
-      <a href="https://github.com/aesvo" target="_blank" rel="noopener noreferrer">
-        <img src="icons/github.gif" alt="GitHub Logo" />
-        <div class="custom-tooltip">github</div>
-      </a>
-      <a href="https://open.spotify.com/user/31mtrznwx7iofjdfhpmpbyzvecx4" target="_blank" rel="noopener noreferrer">
-        <img src="icons/spotify.gif" alt="Spotify" />
-        <div class="custom-tooltip">spotify</div>
       </a>
     </div>
     
