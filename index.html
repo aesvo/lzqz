@@ -405,10 +405,6 @@
         <img src="icons/snake.gif" alt="Snake Logo" />
         <div class="custom-tooltip">slat.cc page</div>
       </a>
-      <a href="https://haunt.gg/hris" target="_blank" rel="noopener noreferrer">
-        <img src="icons/rock.gif" alt="Snake Logo" />
-        <div class="custom-tooltip">haunt.gg page</div>
-      </a>
       <a href="https://drift.rip/5" target="_blank" rel="noopener noreferrer">
         <img src="icons/knight.gif" alt="GitHub Logo" />
         <div class="custom-tooltip">drift.rip page</div>
@@ -440,7 +436,6 @@
     
         const urls = [
           "https://slat.cc/gpt",
-          "https://haunt.gg/hris",
           "https://drift.rip/5"
         ];
     
@@ -490,12 +485,11 @@
         overflow-wrap: break-word;
         text-align: center;
         line-height: 1.5;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-          Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: system-ui, -apple-system, blinkmacsystemfont, 'segoe ui', roboto, oxygen,
+          ubuntu, cantarell, 'open sans', 'helvetica neue', sans-serif;
         position: relative;
         max-height: 180px;
         overflow-y: auto;
-      
       }
       #about-me::-webkit-scrollbar-track {
         background: transparent;
@@ -505,7 +499,6 @@
         border-radius: 3px;
         min-height: 10px;
       }
-    
       #about-me a {
         color: #80b3ff;
         text-decoration: none;
@@ -514,21 +507,18 @@
         position: relative;
         cursor: pointer;
       }
-    
       #about-me a:hover {
         border-bottom: 2px solid #80b3ff;
       }
-    
       #about-me a.no-color {
         color: white !important;
+        border-bottom: none;
       }
-    
       #about-me a.no-color:hover {
         color: white !important;
-        border-bottom: none !important;
+        border-bottom: none;
         cursor: default;
       }
-    
       #about-me .custom-tooltip {
         position: absolute;
         bottom: 125%;
@@ -544,13 +534,13 @@
         pointer-events: none;
         transition: opacity 0.3s ease;
         z-index: 100;
+        text-transform: lowercase;
+        box-shadow: 0 0 6px red, 0 0 12px red, 0 0 24px red;
       }
-    
       #about-me a.no-color:hover .custom-tooltip {
         opacity: 1;
         pointer-events: auto;
       }
-    
       #about-me .custom-tooltip::after {
         content: "";
         position: absolute;
@@ -562,42 +552,29 @@
         border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
       } 
     </style>
-
-    
     
     <div id="about-me">
-      <div style="font-weight: normal; font-size: 1.1rem; margin-bottom: 12px; color: rgb(221, 221, 221);">about me</div>
+      <div style="font-weight: normal; font-size: 1.1rem; margin-bottom: 4px; color: rgb(221, 221, 221);">about me</div>
       <div>
-        i'm 15 turning
+        i'm 
         <a href="javascript:void(0)" class="no-color" id="birthday-link">
-          16 this august
-          <div class="custom-tooltip" id="tooltip-text">HOW LONG until august 16, ... days</div>
+          15 turning 16
+          <div class="custom-tooltip" id="tooltip-text"></div>
         </a>
-        <br>
-        everything weird i say is <strong>JUST A JOKE</strong><br><br>
-        check out my <a href="https://phans.bio/1" target="_blank">phans.bio</a><br>
-        i made this because i was bored
-
       </div>
     </div>
     
     <script>
-      function daysUntilAugust16() {
-        const now = new Date();
-        let year = now.getFullYear();
-        const targetDate = new Date(year, 7, 16);
-        if (now > targetDate) {
-          targetDate.setFullYear(year + 1);
-        }
-        const diffTime = targetDate - now;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
+      const tooltip = document.getElementById("tooltip-text");
+      const today = new Date();
+      const birthday = new Date(today.getFullYear(), 7, 16);
+      if (today > birthday) {
+        birthday.setFullYear(today.getFullYear() + 1);
       }
-    
-      const tooltip = document.getElementById('tooltip-text');
-      const days = daysUntilAugust16();
-      tooltip.textContent = `basically in ${days} day${days === 1 ? '' : 's'}`;
+      const diffTime = Math.ceil((birthday - today) / (1000 * 60 * 60 * 24));
+      tooltip.textContent = `in ${diffTime} days`;
     </script>
+
     <style>
       #bg-video {
         position: fixed;
