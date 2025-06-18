@@ -459,6 +459,14 @@
     
     <audio id="bg_audio" src="song.mp3"></audio>
     
+    <script>
+      const audio1 = document.getElementById('bg-audio');
+      const audio2 = document.getElementById('bg_audio');
+    
+      audio1.volume = 0.01;
+      audio2.volume = 0.01;
+    </script>
+    
     <style>
       #about-me {
         display: block;
@@ -660,7 +668,7 @@
         }, 600);
       });
     
-      const USER_ID = "1380957320745320581";
+      const USER_ID = "1268844772676730880";
       let currentTrackId = null;
       let animationFrameId = null;
       let lastTimestamps = null;
@@ -774,8 +782,6 @@
           }
         });
       });
-
-      
     </script>
 </body>
 </html>
